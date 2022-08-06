@@ -95,89 +95,93 @@ var player5Deck: [Card] = []
 var player6Deck: [Card] = []
 
 func runGivingForTwo (deckOfFirstPlayer: inout [Card], deckOfSecondPlayer: inout [Card]){
-    for _ in 0..<6 {
-        deckOfFirstPlayer = deckOfFirstPlayer + shuffledDeck[0...6]
-        shuffledDeck.removeFirst(6)
-        deckOfSecondPlayer = deckOfSecondPlayer + shuffledDeck[0...6]
-        shuffledDeck.removeFirst(6)
-    }
+    
+    deckOfFirstPlayer = deckOfFirstPlayer + shuffledDeck[0...5]
+    shuffledDeck.removeFirst(6)
+    deckOfSecondPlayer = deckOfSecondPlayer + shuffledDeck[0...5]
+    shuffledDeck.removeFirst(6)
+    
 }
 
 func runGivingForThree (deckOfFirstPlayer: inout [Card], deckOfSecondPlayer: inout [Card], deckOfThirdPlayer: inout [Card]){
-    for _ in 0..<6 {
-        deckOfFirstPlayer = deckOfFirstPlayer + shuffledDeck[0...6]
+
+        deckOfFirstPlayer = deckOfFirstPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-        deckOfSecondPlayer = deckOfSecondPlayer + shuffledDeck[0...6]
+        deckOfSecondPlayer = deckOfSecondPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-        deckOfThirdPlayer = deckOfThirdPlayer + shuffledDeck[0...6]
+        deckOfThirdPlayer = deckOfThirdPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-    }
+    
 }
 
 func runGivingForFour (deckOfFirstPlayer: inout [Card], deckOfSecondPlayer: inout [Card], deckOfThirdPlayer: inout [Card], deckOfForthPlayer: inout [Card]){
-    for _ in 0..<6 {
-        deckOfFirstPlayer = deckOfFirstPlayer + shuffledDeck[0...6]
+
+        deckOfFirstPlayer = deckOfFirstPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-        deckOfSecondPlayer = deckOfSecondPlayer + shuffledDeck[0...6]
+        deckOfSecondPlayer = deckOfSecondPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-        deckOfThirdPlayer = deckOfThirdPlayer + shuffledDeck[0...6]
+        deckOfThirdPlayer = deckOfThirdPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-        deckOfForthPlayer = deckOfForthPlayer + shuffledDeck[0...6]
+        deckOfForthPlayer = deckOfForthPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-    }
+
 }
 
 func runGivingForFive (deckOfFirstPlayer: inout [Card], deckOfSecondPlayer: inout [Card], deckOfThirdPlayer: inout [Card], deckOfForthPlayer: inout [Card], deckOfFifthPlayer: inout [Card]){
-    for _ in 0..<6 {
-        deckOfFirstPlayer = deckOfFirstPlayer + shuffledDeck[0...6]
+
+        deckOfFirstPlayer = deckOfFirstPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-        deckOfSecondPlayer = deckOfSecondPlayer + shuffledDeck[0...6]
+        deckOfSecondPlayer = deckOfSecondPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-        deckOfThirdPlayer = deckOfThirdPlayer + shuffledDeck[0...6]
+        deckOfThirdPlayer = deckOfThirdPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-        deckOfForthPlayer = deckOfForthPlayer + shuffledDeck[0...6]
+        deckOfForthPlayer = deckOfForthPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-        deckOfFifthPlayer = deckOfFifthPlayer + shuffledDeck[0...6]
+        deckOfFifthPlayer = deckOfFifthPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-    }
+
 }
 
 func runGivingForAll (deckOfFirstPlayer: inout [Card], deckOfSecondPlayer: inout [Card], deckOfThirdPlayer: inout [Card], deckOfForthPlayer: inout [Card], deckOfFifthPlayer: inout [Card], deckOfSixthPlayer: inout [Card]){
-    for _ in 0..<6 {
-        deckOfFirstPlayer = deckOfFirstPlayer + shuffledDeck[0...6]
+
+        deckOfFirstPlayer = deckOfFirstPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-        deckOfSecondPlayer = deckOfSecondPlayer + shuffledDeck[0...6]
+        deckOfSecondPlayer = deckOfSecondPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-        deckOfThirdPlayer = deckOfThirdPlayer + shuffledDeck[0...6]
+        deckOfThirdPlayer = deckOfThirdPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-        deckOfForthPlayer = deckOfForthPlayer + shuffledDeck[0...6]
+        deckOfForthPlayer = deckOfForthPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-        deckOfFifthPlayer = deckOfFifthPlayer + shuffledDeck[0...6]
+        deckOfFifthPlayer = deckOfFifthPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-        deckOfSixthPlayer = deckOfSixthPlayer + shuffledDeck[0...6]
+        deckOfSixthPlayer = deckOfSixthPlayer + shuffledDeck[0...5]
         shuffledDeck.removeAll()
-    }
+
 }
 
 print("How many players will play?")
-var playerCount: Int = readLine()
+var playerCount: String? = readLine()
 print("There are \(playerCount) players in party")
 
 switch playerCount {
-    case 1: print("You cant play solo");
+    case "1": print("You cant play solo");
     
-    case 2: runGivingForTwo(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck)
+    case "2": runGivingForTwo(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck)
     
-    case 3: runGivingForThree(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck, deckOfThirdPlayer: &player3Deck)
+    case "3": runGivingForThree(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck, deckOfThirdPlayer: &player3Deck)
     
-    case 4: runGivingForFour(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck, deckOfThirdPlayer: &player3Deck, deckOfForthPlayer: &player4Deck)
+    case "4": runGivingForFour(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck, deckOfThirdPlayer: &player3Deck, deckOfForthPlayer: &player4Deck)
     
-    case 5: runGivingForFive(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck, deckOfThirdPlayer: &player3Deck, deckOfForthPlayer: &player4Deck, deckOfFifthPlayer: &player5Deck)
+    case "5": runGivingForFive(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck, deckOfThirdPlayer: &player3Deck, deckOfForthPlayer: &player4Deck, deckOfFifthPlayer: &player5Deck)
     
-    case 6: runGivingForAll(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck, deckOfThirdPlayer: &player3Deck, deckOfForthPlayer: &player4Deck, deckOfFifthPlayer: &player5Deck, deckOfSixthPlayer: &player6Deck)
+    case "6": runGivingForAll(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck, deckOfThirdPlayer: &player3Deck, deckOfForthPlayer: &player4Deck, deckOfFifthPlayer: &player5Deck, deckOfSixthPlayer: &player6Deck)
     
     default: print("You need to enter players count for this party");
 }
+
+
+
+
 
 
 /*func give1Card(){
@@ -270,10 +274,5 @@ class Deck {
  }
 
  makeCardsSuitTrump(shuffledDeck)
+ */
  
- 
- 
- 
- 
- 
-*/
