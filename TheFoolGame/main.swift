@@ -152,36 +152,20 @@ switch playerCount {
     default: print("You need to enter players count for this party");
 }
 
-func sortCardsOnHand (playerDeck: inout [Card]) {
-    var sortedRank = false
-    var sortedSuit = false
-    while sortedRank == false {
-    sortedRank = true
-        for i in (0...playerDeck.count - 2) {
-            if playerDeck[i].rank > playerDeck[i+1].rank{
-                sortedRank = false
-                var firstRank = playerDeck[i]
-                var secondRank = playerDeck[i + 1]
-                playerDeck[i] = secondRank
-                playerDeck[i + 1] = firstRank
-            }
-        }
+func sortCardsOnHand (playerDeck: inout [Card], trumpNumber: Int) {
+    for i in (0...playerDeck.count - 1) {
+        playerDeck[i].rank *= (playerDeck[i].isTrumpCard ? 100 : 1)
     }
-    while sortedSuit == false {
-    sortedSuit = true
-        for i in (0...playerDeck.count - 2) {
-            if playerDeck[i].suit > playerDeck[i+1].suit && playerDeck[i].rank == playerDeck[i+1].rank {
-                sortedSuit = false
-                var firstSuit = playerDeck[i]
-                var secondSuit = playerDeck[i + 1]
-                playerDeck[i] = secondSuit
-                playerDeck[i + 1] = firstSuit
-            }
-        }
+    
+    playerDeck = playerDeck.sorted { $0.rank < $1.rank }
+    playerDeck = playerDeck.sorted { $0.suit < $1.suit && $0.rank == $1.rank }
+    
+    for i in (0...playerDeck.count - 1) {
+        playerDeck[i].rank /= (playerDeck[i].isTrumpCard ? 100 : 1)
     }
 }
 
-sortCardsOnHand(playerDeck: &player1Deck)
+sortCardsOnHand(playerDeck: &player1Deck, trumpNumber: trumpSuitNumber)
 
 print("Your cards are: ")
 
@@ -213,7 +197,12 @@ func showCardsOfPlayer(playerDeck: [Card]) {
         
                 default: print("ERROR")
             }
-        stringPlayerDeckCard = cardRank + cardSuit
+        let cardTrumpSuit: String = "(T)"
+            if card.suit == trumpSuitNumber {
+                stringPlayerDeckCard = cardTrumpSuit + cardRank + cardSuit
+            } else {
+                stringPlayerDeckCard = cardRank + cardSuit
+            }
         stringPlayerDeck = stringPlayerDeck + stringPlayerDeckCard
     }
     print("\(stringPlayerDeck)")
