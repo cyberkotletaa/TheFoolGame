@@ -20,23 +20,6 @@ class Card {
     }
 }
 
-class Player {
-    var name: String
-    init(name: String){
-        self.name = name
-    }
-}
-class Deck {
-    var cardNumber: Int
-    init(cardNumber: Int){
-        self.cardNumber = cardNumber
-    }
-}
-
-class Party {
-    
-}
-
 var Card1 = Card(rank: 6, suit: 1, isTrumpCard: false)
 var Card2 = Card(rank: 7, suit: 1, isTrumpCard: false)
 var Card3 = Card(rank: 8, suit: 1, isTrumpCard: false)
@@ -169,6 +152,37 @@ switch playerCount {
     default: print("You need to enter players count for this party");
 }
 
+func sortCardsOnHand (playerDeck: inout [Card]) {
+    var sortedRank = false
+    var sortedSuit = false
+    while sortedRank == false {
+    sortedRank = true
+        for i in (0...playerDeck.count - 2) {
+            if playerDeck[i].rank > playerDeck[i+1].rank{
+                sortedRank = false
+                var firstRank = playerDeck[i]
+                var secondRank = playerDeck[i + 1]
+                playerDeck[i] = secondRank
+                playerDeck[i + 1] = firstRank
+            }
+        }
+    }
+    while sortedSuit == false {
+    sortedSuit = true
+        for i in (0...playerDeck.count - 2) {
+            if playerDeck[i].suit > playerDeck[i+1].suit && playerDeck[i].rank == playerDeck[i+1].rank {
+                sortedSuit = false
+                var firstSuit = playerDeck[i]
+                var secondSuit = playerDeck[i + 1]
+                playerDeck[i] = secondSuit
+                playerDeck[i + 1] = firstSuit
+            }
+        }
+    }
+}
+
+sortCardsOnHand(playerDeck: &player1Deck)
+
 print("Your cards are: ")
 
 var stringPlayerDeckCard = ""
@@ -206,4 +220,3 @@ func showCardsOfPlayer(playerDeck: [Card]) {
 }
 
 showCardsOfPlayer(playerDeck: player1Deck)
-//test commit
