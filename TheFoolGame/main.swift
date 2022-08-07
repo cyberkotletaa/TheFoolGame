@@ -37,7 +37,6 @@ class Party {
     
 }
 
-
 var Card1 = Card(rank: 6, suit: 1, isTrumpCard: false)
 var Card2 = Card(rank: 7, suit: 1, isTrumpCard: false)
 var Card3 = Card(rank: 8, suit: 1, isTrumpCard: false)
@@ -95,27 +94,22 @@ var player5Deck: [Card] = []
 var player6Deck: [Card] = []
 
 func runGivingForTwo (deckOfFirstPlayer: inout [Card], deckOfSecondPlayer: inout [Card]){
-    
     deckOfFirstPlayer = deckOfFirstPlayer + shuffledDeck[0...5]
     shuffledDeck.removeFirst(6)
     deckOfSecondPlayer = deckOfSecondPlayer + shuffledDeck[0...5]
     shuffledDeck.removeFirst(6)
-    
 }
 
 func runGivingForThree (deckOfFirstPlayer: inout [Card], deckOfSecondPlayer: inout [Card], deckOfThirdPlayer: inout [Card]){
-
         deckOfFirstPlayer = deckOfFirstPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
         deckOfSecondPlayer = deckOfSecondPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
         deckOfThirdPlayer = deckOfThirdPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-    
 }
 
 func runGivingForFour (deckOfFirstPlayer: inout [Card], deckOfSecondPlayer: inout [Card], deckOfThirdPlayer: inout [Card], deckOfForthPlayer: inout [Card]){
-
         deckOfFirstPlayer = deckOfFirstPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
         deckOfSecondPlayer = deckOfSecondPlayer + shuffledDeck[0...5]
@@ -124,11 +118,9 @@ func runGivingForFour (deckOfFirstPlayer: inout [Card], deckOfSecondPlayer: inou
         shuffledDeck.removeFirst(6)
         deckOfForthPlayer = deckOfForthPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-
 }
 
 func runGivingForFive (deckOfFirstPlayer: inout [Card], deckOfSecondPlayer: inout [Card], deckOfThirdPlayer: inout [Card], deckOfForthPlayer: inout [Card], deckOfFifthPlayer: inout [Card]){
-
         deckOfFirstPlayer = deckOfFirstPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
         deckOfSecondPlayer = deckOfSecondPlayer + shuffledDeck[0...5]
@@ -139,11 +131,9 @@ func runGivingForFive (deckOfFirstPlayer: inout [Card], deckOfSecondPlayer: inou
         shuffledDeck.removeFirst(6)
         deckOfFifthPlayer = deckOfFifthPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
-
 }
 
 func runGivingForAll (deckOfFirstPlayer: inout [Card], deckOfSecondPlayer: inout [Card], deckOfThirdPlayer: inout [Card], deckOfForthPlayer: inout [Card], deckOfFifthPlayer: inout [Card], deckOfSixthPlayer: inout [Card]){
-
         deckOfFirstPlayer = deckOfFirstPlayer + shuffledDeck[0...5]
         shuffledDeck.removeFirst(6)
         deckOfSecondPlayer = deckOfSecondPlayer + shuffledDeck[0...5]
@@ -156,12 +146,12 @@ func runGivingForAll (deckOfFirstPlayer: inout [Card], deckOfSecondPlayer: inout
         shuffledDeck.removeFirst(6)
         deckOfSixthPlayer = deckOfSixthPlayer + shuffledDeck[0...5]
         shuffledDeck.removeAll()
-
 }
 
 print("How many players will play?")
-var playerCount: String? = readLine()
+var playerCount: String = readLine()!
 print("There are \(playerCount) players in party")
+print("Giving cards for you all...")
 
 switch playerCount {
     case "1": print("You cant play solo");
@@ -179,100 +169,40 @@ switch playerCount {
     default: print("You need to enter players count for this party");
 }
 
+print("Your cards are: ")
 
+var stringPlayerDeckCard = ""
+var stringPlayerDeck = ""
 
-
-
-
-/*func give1Card(){
-    playerDeck.append(shuffledDeck[0])
-    shuffledDeck.remove(at: 0)
-}0
-
-func give2Cards(){
-    playerDeck = playerDeck + shuffledDeck[0...1]
-    for _ in 0...1 {
-        shuffledDeck.remove(at: 0)
+func showCardsOfPlayer(playerDeck: [Card]) {
+    for card in playerDeck{
+        var cardRank: String = ""
+            switch card.rank {
+                case 6: cardRank = "Six"
+                case 7: cardRank = "Seven"
+                case 8: cardRank = "Eight"
+                case 9: cardRank = "Nine"
+                case 10: cardRank = "Ten"
+                case 11: cardRank = "Jack"
+                case 12: cardRank = "Queen"
+                case 13: cardRank = "King"
+                case 14: cardRank = "Ace"
+                
+                default: print("ERROR")
+            }
+        var cardSuit: String = ""
+            switch card.suit {
+                case 1: cardSuit = "♠   "
+                case 2: cardSuit = "♡   "
+                case 3: cardSuit = "♣   "
+                case 4: cardSuit = "♢   "
+        
+                default: print("ERROR")
+            }
+        stringPlayerDeckCard = cardRank + cardSuit
+        stringPlayerDeck = stringPlayerDeck + stringPlayerDeckCard
     }
+    print("\(stringPlayerDeck)")
 }
 
-func give3Cards(){
-    playerDeck = playerDeck + shuffledDeck[0...2]
-    for _ in 0...2 {
-        shuffledDeck.remove(at: 0)
-    }
-}
-
-func give6Cards(){
-    playerDeck = playerDeck + shuffledDeck[0...5]
-    for _ in 0...5 {
-        shuffledDeck.remove(at: 0)
-    }
-}
-*/
-
-/*func giveCardToPlayer(shuffledDeck1: Array<Card>, playerDeck1: Array<Card>) -> playerDeck1 {
-    playerDeck1 = shuffledDeck1[0]
-    shuffledDeck1.remove(at: 0)
-}*/
-
-//Creating and asking how many players will play
-
-/*
-struct Player {
-    let cardCount = 6
-    var handCards = [Card]()
-}
-
-var playerCount: Int
-print("How many players will play?")
-playerCount = Int(readLine())
-print("player count \(playerCount)")
-
-
-func giveFirstCard() -> userCard1 {
-    var firstCardRank: Int = Int.random(in: 6 ... 14)
-    var firstCardSuit: Int = Int.random(in: 1 ... 4)
-}
-
-giveFirstCard()
-
-var namesOfSuits : [Int: String] = [
-    1 : "Chirva" , 2 : "Pika", 3 : "Bubna", 4 : "Krest"
-]
-
-var namesOfCards : [Int: String] = [
-    11 : "Jack" , 12 : "Queen", 13 : "King'", 14 : "Ace"
-]
-
-
-class Deck {
-    
-    enum Suit: Character {
-        case spades = "♠", hearts = "♡", diamonds = "♢", clubs = "♣"
-    }
-    
-    enum Rank: Int {
-        case six = 6, seven, eight, nine, ten, jack, queen, king, ace
-    }
-}
- 
- 
- 
- 
- 
- func makeCardsSuitTrump(_: [Card]) -> [Card] {
-     
-     let trumpSuitNumber = Int.random(in: 1 ... 4)
-     
-     for card in shuffledDeck{
-         if card.suit == trumpSuitNumber {
-             card.isTrumpCard = true
-         }
-     }
-     return shuffledDeck
- }
-
- makeCardsSuitTrump(shuffledDeck)
- */
- 
+showCardsOfPlayer(playerDeck: player1Deck)
