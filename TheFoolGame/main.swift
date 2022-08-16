@@ -208,4 +208,21 @@ func showCardsOfPlayer(playerDeck: [Card]) {
     print("\(stringPlayerDeck)")
 }
 
-showCardsOfPlayer(playerDeck: player1Deck)
+print("It's time to pick a card")
+var stringValue: String = readLine()!
+var pickedCard: Int = 0
+if pickedCard == Int(stringValue)! {
+    pickedCard = Int(stringValue)!
+}
+
+func beatCard(pickedcard: Int, FirstPlayerDeck: [Card], SecondPlayerDeck: [Card]){
+    /*for _ in 0...SecondPlayerDeck.count{
+        if FirstPlayerDeck[pickedcard - 1].rank < _.rank {
+            
+        }
+    }
+    while SecondPlayerDeck.count == 0 {
+        
+        SecondPlayerDeck.count -= 1
+    }*/
+}
