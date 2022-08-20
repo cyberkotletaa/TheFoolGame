@@ -134,7 +134,6 @@ func runGivingForAll (deckOfFirstPlayer: inout [Card], deckOfSecondPlayer: inout
 print("How many players will play?")
 var playerCount: String = readLine()!
 print("There are \(playerCount) players in party")
-print("Giving cards for you all...")
 
 switch playerCount {
     case "1": print("You cant play solo");
@@ -152,6 +151,8 @@ switch playerCount {
     default: print("You need to enter players count for this party");
 }
 
+print("Giving cards for you all...")
+
 func sortCardsOnHand (playerDeck: inout [Card], trumpNumber: Int) {
     for i in (0...playerDeck.count - 1) {
         playerDeck[i].rank *= (playerDeck[i].isTrumpCard ? 100 : 1)
@@ -165,14 +166,10 @@ func sortCardsOnHand (playerDeck: inout [Card], trumpNumber: Int) {
     }
 }
 
-sortCardsOnHand(playerDeck: &player1Deck, trumpNumber: trumpSuitNumber)
-
-print("Your cards are: ")
-
-var stringPlayerDeckCard = ""
-var stringPlayerDeck = ""
-
-func showCardsOfPlayer(playerDeck: [Card]) {
+func showCardsOfPlayer(playerDeck: inout [Card]) {
+    sortCardsOnHand(playerDeck: &playerDeck, trumpNumber: trumpSuitNumber)
+    var stringPlayerDeckCard = ""
+    var stringPlayerDeck = ""
     for card in playerDeck{
         var cardRank: String = ""
             switch card.rank {
@@ -206,23 +203,44 @@ func showCardsOfPlayer(playerDeck: [Card]) {
         stringPlayerDeck = stringPlayerDeck + stringPlayerDeckCard
     }
     print("\(stringPlayerDeck)")
+    stringPlayerDeck = ""
 }
+
+print("Your cards are: ")
+showCardsOfPlayer(playerDeck: &player1Deck)
 
 print("It's time to pick a card")
-var stringValue: String = readLine()!
+
+
+let stringValue = readLine()
 var pickedCard: Int = 0
-if pickedCard == Int(stringValue)! {
-    pickedCard = Int(stringValue)!
+if let yourStr = Int(stringValue!) {
+    pickedCard = yourStr
 }
 
-func beatCard(pickedcard: Int, FirstPlayerDeck: [Card], SecondPlayerDeck: [Card]){
-    /*for _ in 0...SecondPlayerDeck.count{
-        if FirstPlayerDeck[pickedcard - 1].rank < _.rank {
-            
+print("1")
+showCardsOfPlayer(playerDeck: &player1Deck)
+print("2")
+showCardsOfPlayer(playerDeck: &player2Deck)
+
+func BestMatchingCards (pickedcard: Int, FirstPlayerDeck: [Card], SecondPlayerDeck: inout [Card]){
+    var bestMatchingCards: [Card] = []
+    for card in SecondPlayerDeck{
+        if card.rank > FirstPlayerDeck[pickedcard - 1].rank && card.rank == FirstPlayerDeck[pickedcard - 1].rank {
+            bestMatchingCards.append(card)
         }
     }
-    while SecondPlayerDeck.count == 0 {
-        
-        SecondPlayerDeck.count -= 1
-    }*/
+    if bestMatchingCards.count == 0 {
+        for card in SecondPlayerDeck{
+            if card.suit == trumpSuitNumber {
+                bestMatchingCards.append(card)
+            }
+        }
+    }
+    switch bestMatchingCards.isEmpty {
+    case true : SecondPlayerDeck.append(FirstPlayerDeck[pickedcard - 1])
+        print("Ход окончен")
+    case false : print("Выбери карту чтоб отбиться")
+    }
 }
+BestMatchingCards(pickedcard: pickedCard, FirstPlayerDeck: player1Deck, SecondPlayerDeck: &player2Deck)
