@@ -12,55 +12,58 @@ class Card {
     var rank : Int
     var suit : Int
     var isTrumpCard : Bool
+    var index: Int
     
-    init(rank : Int, suit : Int, isTrumpCard : Bool){
+    init(rank : Int, suit : Int, isTrumpCard : Bool, index: Int){
         self.rank = rank
         self.suit = suit
         self.isTrumpCard = isTrumpCard
+        self.index = index
     }
 }
 
-var Card1 = Card(rank: 6, suit: 1, isTrumpCard: false)
-var Card2 = Card(rank: 7, suit: 1, isTrumpCard: false)
-var Card3 = Card(rank: 8, suit: 1, isTrumpCard: false)
-var Card4 = Card(rank: 9, suit: 1, isTrumpCard: false)
-var Card5 = Card(rank: 10, suit: 1, isTrumpCard: false)
-var Card6 = Card(rank: 11, suit: 1, isTrumpCard: false)
-var Card7 = Card(rank: 12, suit: 1, isTrumpCard: false)
-var Card8 = Card(rank: 13, suit: 1, isTrumpCard: false)
-var Card9 = Card(rank: 14, suit: 1, isTrumpCard: false)
-var Card10 = Card(rank: 6, suit: 2, isTrumpCard: false)
-var Card11 = Card(rank: 7, suit: 2, isTrumpCard: false)
-var Card12 = Card(rank: 8, suit: 2, isTrumpCard: false)
-var Card13 = Card(rank: 9, suit: 2, isTrumpCard: false)
-var Card14 = Card(rank: 10, suit: 2, isTrumpCard: false)
-var Card15 = Card(rank: 11, suit: 2, isTrumpCard: false)
-var Card16 = Card(rank: 12, suit: 2, isTrumpCard: false)
-var Card17 = Card(rank: 13, suit: 2, isTrumpCard: false)
-var Card18 = Card(rank: 14, suit: 2, isTrumpCard: false)
-var Card19 = Card(rank: 6, suit: 3, isTrumpCard: false)
-var Card20 = Card(rank: 7, suit: 3, isTrumpCard: false)
-var Card21 = Card(rank: 8, suit: 3, isTrumpCard: false)
-var Card22 = Card(rank: 9, suit: 3, isTrumpCard: false)
-var Card23 = Card(rank: 10, suit: 3, isTrumpCard: false)
-var Card24 = Card(rank: 11, suit: 3, isTrumpCard: false)
-var Card25 = Card(rank: 12, suit: 3, isTrumpCard: false)
-var Card26 = Card(rank: 13, suit: 3, isTrumpCard: false)
-var Card27 = Card(rank: 14, suit: 3, isTrumpCard: false)
-var Card28 = Card(rank: 6, suit: 4, isTrumpCard: false)
-var Card29 = Card(rank: 7, suit: 4, isTrumpCard: false)
-var Card30 = Card(rank: 8, suit: 4, isTrumpCard: false)
-var Card31 = Card(rank: 9, suit: 4, isTrumpCard: false)
-var Card32 = Card(rank: 10, suit: 4, isTrumpCard: false)
-var Card33 = Card(rank: 11, suit: 4, isTrumpCard: false)
-var Card34 = Card(rank: 12, suit: 4, isTrumpCard: false)
-var Card35 = Card(rank: 13, suit: 4, isTrumpCard: false)
-var Card36 = Card(rank: 14, suit: 4, isTrumpCard: false)
+var Card1 = Card(rank: 6, suit: 1, isTrumpCard: false, index: 1)
+var Card2 = Card(rank: 7, suit: 1, isTrumpCard: false, index: 1)
+var Card3 = Card(rank: 8, suit: 1, isTrumpCard: false, index: 1)
+var Card4 = Card(rank: 9, suit: 1, isTrumpCard: false, index: 1)
+var Card5 = Card(rank: 10, suit: 1, isTrumpCard: false, index: 1)
+var Card6 = Card(rank: 11, suit: 1, isTrumpCard: false, index: 1)
+var Card7 = Card(rank: 12, suit: 1, isTrumpCard: false, index: 1)
+var Card8 = Card(rank: 13, suit: 1, isTrumpCard: false, index: 1)
+var Card9 = Card(rank: 14, suit: 1, isTrumpCard: false, index: 1)
+var Card10 = Card(rank: 6, suit: 2, isTrumpCard: false, index: 1)
+var Card11 = Card(rank: 7, suit: 2, isTrumpCard: false, index: 1)
+var Card12 = Card(rank: 8, suit: 2, isTrumpCard: false, index: 1)
+var Card13 = Card(rank: 9, suit: 2, isTrumpCard: false, index: 1)
+var Card14 = Card(rank: 10, suit: 2, isTrumpCard: false, index: 1)
+var Card15 = Card(rank: 11, suit: 2, isTrumpCard: false, index: 1)
+var Card16 = Card(rank: 12, suit: 2, isTrumpCard: false, index: 1)
+var Card17 = Card(rank: 13, suit: 2, isTrumpCard: false, index: 1)
+var Card18 = Card(rank: 14, suit: 2, isTrumpCard: false, index: 1)
+var Card19 = Card(rank: 6, suit: 3, isTrumpCard: false, index: 1)
+var Card20 = Card(rank: 7, suit: 3, isTrumpCard: false, index: 1)
+var Card21 = Card(rank: 8, suit: 3, isTrumpCard: false, index: 1)
+var Card22 = Card(rank: 9, suit: 3, isTrumpCard: false, index: 1)
+var Card23 = Card(rank: 10, suit: 3, isTrumpCard: false, index: 1)
+var Card24 = Card(rank: 11, suit: 3, isTrumpCard: false, index: 1)
+var Card25 = Card(rank: 12, suit: 3, isTrumpCard: false, index: 1)
+var Card26 = Card(rank: 13, suit: 3, isTrumpCard: false, index: 1)
+var Card27 = Card(rank: 14, suit: 3, isTrumpCard: false, index: 1)
+var Card28 = Card(rank: 6, suit: 4, isTrumpCard: false, index: 1)
+var Card29 = Card(rank: 7, suit: 4, isTrumpCard: false, index: 1)
+var Card30 = Card(rank: 8, suit: 4, isTrumpCard: false, index: 1)
+var Card31 = Card(rank: 9, suit: 4, isTrumpCard: false, index: 1)
+var Card32 = Card(rank: 10, suit: 4, isTrumpCard: false, index: 1)
+var Card33 = Card(rank: 11, suit: 4, isTrumpCard: false, index: 1)
+var Card34 = Card(rank: 12, suit: 4, isTrumpCard: false, index: 1)
+var Card35 = Card(rank: 13, suit: 4, isTrumpCard: false, index: 1)
+var Card36 = Card(rank: 14, suit: 4, isTrumpCard: false, index: 1)
 
 var deck = [Card1, Card2, Card3, Card4, Card5, Card6, Card7, Card8, Card9, Card10, Card11, Card12, Card13, Card14, Card15, Card16, Card17, Card18, Card19, Card20, Card21, Card22, Card23, Card24, Card25, Card26, Card27, Card28, Card29, Card30, Card31, Card32, Card33, Card34, Card35, Card36]
 
 var shuffledDeck = deck.shuffled()
-
+var pool: [Card] = []
+var used: [Card] = []
 let trumpSuitNumber = Int.random(in: 1 ... 4)
     
     for card in shuffledDeck{
@@ -153,21 +156,22 @@ switch playerCount {
 
 print("Giving cards for you all...")
 
-func sortCardsOnHand (playerDeck: inout [Card], trumpNumber: Int) {
-    for i in (0...playerDeck.count - 1) {
-        playerDeck[i].rank *= (playerDeck[i].isTrumpCard ? 100 : 1)
+func sortCardsOnHand (playerDeck: inout [Card], trumpNumber: Int) -> [Card] {
+    for card in stride(from: 0, through: playerDeck.count - 1, by: 1) {
+        playerDeck[card].rank *= (playerDeck[card].isTrumpCard ? 100 : 1)
     }
     
     playerDeck = playerDeck.sorted { $0.rank < $1.rank }
     playerDeck = playerDeck.sorted { $0.suit < $1.suit && $0.rank == $1.rank }
     
-    for i in (0...playerDeck.count - 1) {
-        playerDeck[i].rank /= (playerDeck[i].isTrumpCard ? 100 : 1)
+    for card in stride(from: 0, through: playerDeck.count - 1, by: 1) {
+        playerDeck[card].rank /= (playerDeck[card].isTrumpCard ? 100 : 1)
     }
+    return playerDeck
 }
 
-func showCardsOfPlayer(playerDeck: inout [Card]) {
-    sortCardsOnHand(playerDeck: &playerDeck, trumpNumber: trumpSuitNumber)
+func showCardsOfPlayer(playerDeckOnHand: inout [Card]) {
+    let playerDeck = sortCardsOnHand(playerDeck: &playerDeckOnHand, trumpNumber: trumpSuitNumber)
     var stringPlayerDeckCard = ""
     var stringPlayerDeck = ""
     for card in playerDeck{
@@ -206,41 +210,57 @@ func showCardsOfPlayer(playerDeck: inout [Card]) {
     stringPlayerDeck = ""
 }
 
-print("Your cards are: ")
-showCardsOfPlayer(playerDeck: &player1Deck)
-
-print("It's time to pick a card")
-
-
-let stringValue = readLine()
-var pickedCard: Int = 0
-if let yourStr = Int(stringValue!) {
-    pickedCard = yourStr
+func readCardNumberToMove() -> Int {
+    print("It's time to pick a card")
+    let stringValue = readLine()
+    var pickedCard: Int = 0
+    if let yourStr = Int(stringValue!) {
+        pickedCard = yourStr
+    }
+    return pickedCard
 }
 
-print("1")
-showCardsOfPlayer(playerDeck: &player1Deck)
-print("2")
-showCardsOfPlayer(playerDeck: &player2Deck)
-
-func BestMatchingCards (pickedcard: Int, FirstPlayerDeck: [Card], SecondPlayerDeck: inout [Card]){
+func BestMatchingCardsToBeat (FirstPlayerDeck: inout [Card], SecondPlayerDeck: inout [Card]) -> [Card] {
+    let pickedCard = readCardNumberToMove()
     var bestMatchingCards: [Card] = []
     for card in SecondPlayerDeck{
-        if card.rank > FirstPlayerDeck[pickedcard - 1].rank && card.rank == FirstPlayerDeck[pickedcard - 1].rank {
+        if card.rank > FirstPlayerDeck[pickedCard - 1].rank && card.suit == FirstPlayerDeck[pickedCard - 1].suit {
             bestMatchingCards.append(card)
+            let i = SecondPlayerDeck.firstIndex(where: {$0.rank == card.rank && $0.suit == card.suit})
+            SecondPlayerDeck.remove(at: i!)
         }
     }
-    if bestMatchingCards.count == 0 {
+    if bestMatchingCards.isEmpty {
         for card in SecondPlayerDeck{
-            if card.suit == trumpSuitNumber {
+            if card.rank > FirstPlayerDeck[pickedCard - 1].rank && card.suit == trumpSuitNumber {
                 bestMatchingCards.append(card)
+                let j = SecondPlayerDeck.firstIndex(where: {$0.rank == card.rank && $0.suit == card.suit})
+                SecondPlayerDeck.remove(at: j!)
             }
         }
     }
-    switch bestMatchingCards.isEmpty {
-    case true : SecondPlayerDeck.append(FirstPlayerDeck[pickedcard - 1])
-        print("Ход окончен")
-    case false : print("Выбери карту чтоб отбиться")
+    return bestMatchingCards
+}
+
+func readCardNumberToBeat() -> Int {
+    print("It's time to beat a card, which one you choose?")
+    let stringValue = readLine()
+    var pickedCard: Int = 0
+    if let yourStr = Int(stringValue!) {
+        pickedCard = yourStr
+    }
+    return pickedCard
+}
+
+func Beat(used: inout [Card], bestMatchingCards: [Card], pickedCardToBeat: Int) -> [Card] {
+    if bestMatchingCards.isEmpty == false {
+        
+    }
+    return used
+}
+
+func PickUpCards (bestMatchingCards: [Card]) {
+    if bestMatchingCards.isEmpty == true {
+        
     }
 }
-BestMatchingCards(pickedcard: pickedCard, FirstPlayerDeck: player1Deck, SecondPlayerDeck: &player2Deck)
