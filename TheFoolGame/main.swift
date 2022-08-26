@@ -134,29 +134,31 @@ func runGivingForAll (deckOfFirstPlayer: inout [Card], deckOfSecondPlayer: inout
         shuffledDeck.removeAll()
 }
 
-print("How many players will play?")
-var playerCount: String = readLine()!
-print("There are \(playerCount) players in party")
+func Start(){
+    print("How many players will play?\n")
+    let playerCount: String = readLine()!
+    print("\nThere are \(playerCount) players in party \n")
 
-switch playerCount {
-    case "1": print("You cant play solo");
-    
-    case "2": runGivingForTwo(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck)
-    
-    case "3": runGivingForThree(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck, deckOfThirdPlayer: &player3Deck)
-    
-    case "4": runGivingForFour(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck, deckOfThirdPlayer: &player3Deck, deckOfForthPlayer: &player4Deck)
-    
-    case "5": runGivingForFive(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck, deckOfThirdPlayer: &player3Deck, deckOfForthPlayer: &player4Deck, deckOfFifthPlayer: &player5Deck)
-    
-    case "6": runGivingForAll(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck, deckOfThirdPlayer: &player3Deck, deckOfForthPlayer: &player4Deck, deckOfFifthPlayer: &player5Deck, deckOfSixthPlayer: &player6Deck)
-    
-    default: print("You need to enter players count for this party");
+    switch playerCount {
+        case "1": print("You cannot play solo \n");
+        
+        case "2": runGivingForTwo(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck)
+        
+        case "3": runGivingForThree(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck, deckOfThirdPlayer: &player3Deck)
+        
+        case "4": runGivingForFour(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck, deckOfThirdPlayer: &player3Deck, deckOfForthPlayer: &player4Deck)
+        
+        case "5": runGivingForFive(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck, deckOfThirdPlayer: &player3Deck, deckOfForthPlayer: &player4Deck, deckOfFifthPlayer: &player5Deck)
+        
+        case "6": runGivingForAll(deckOfFirstPlayer: &player1Deck, deckOfSecondPlayer: &player2Deck, deckOfThirdPlayer: &player3Deck, deckOfForthPlayer: &player4Deck, deckOfFifthPlayer: &player5Deck, deckOfSixthPlayer: &player6Deck)
+        
+        default: print("You need to enter players count for this party\n");
+    }
+
+    print("Giving cards for you all...\n")
 }
 
-print("Giving cards for you all...")
-
-func sortCardsOnHand (playerDeck: inout [Card], trumpNumber: Int) -> [Card] {
+func SortCardsOnHand (playerDeck: inout [Card], trumpNumber: Int) -> [Card] {
     for card in stride(from: 0, through: playerDeck.count - 1, by: 1) {
         playerDeck[card].rank *= (playerDeck[card].isTrumpCard ? 100 : 1)
     }
@@ -170,8 +172,8 @@ func sortCardsOnHand (playerDeck: inout [Card], trumpNumber: Int) -> [Card] {
     return playerDeck
 }
 
-func showCardsOfPlayer(playerDeckOnHand: inout [Card]) {
-    let playerDeck = sortCardsOnHand(playerDeck: &playerDeckOnHand, trumpNumber: trumpSuitNumber)
+func ShowCardsOfPlayer(playerDeckOnHand: inout [Card]) {
+    let playerDeck = SortCardsOnHand(playerDeck: &playerDeckOnHand, trumpNumber: trumpSuitNumber)
     var stringPlayerDeckCard = ""
     var stringPlayerDeck = ""
     for card in playerDeck{
@@ -206,12 +208,19 @@ func showCardsOfPlayer(playerDeckOnHand: inout [Card]) {
             }
         stringPlayerDeck = stringPlayerDeck + stringPlayerDeckCard
     }
-    print("\(stringPlayerDeck)")
+    print("\(stringPlayerDeck)\n")
     stringPlayerDeck = ""
 }
 
-func readCardNumberToMove() -> Int {
-    print("It's time to pick a card")
+func YourMove(){
+    print("Your turn\n")
+}
+
+func ComputerMove(){
+    print("Be ready to beat!\n")
+}
+
+func ReadCardNumberToMove() -> Int {
     let stringValue = readLine()
     var pickedCard: Int = 0
     if let yourStr = Int(stringValue!) {
@@ -220,47 +229,84 @@ func readCardNumberToMove() -> Int {
     return pickedCard
 }
 
-func BestMatchingCardsToBeat (FirstPlayerDeck: inout [Card], SecondPlayerDeck: inout [Card]) -> [Card] {
-    let pickedCard = readCardNumberToMove()
+func ReadCardNumberToBeat() -> Int {
+    print("It's time to beat a card, which one you choose?\n")
+    let stringValue = readLine()
+    var pickedCard: Int = 0
+    if let yourStr = Int(stringValue!) {
+        pickedCard = yourStr
+    }
+    return pickedCard
+}
+
+func MoveByComputer(whoMovesDeck: inout [Card]) -> [Card] {
+    let Deck = SortCardsOnHand(playerDeck: &whoMovesDeck, trumpNumber: trumpSuitNumber)
+    var firstCard: [Card] = []
+    firstCard.append(Deck[0])
+    for _ in whoMovesDeck {
+        let i = whoMovesDeck.firstIndex(where: {$0.rank == Deck[0].rank && $0.suit == Deck[0].suit})
+        whoMovesDeck.remove(at: i!)
+    }
+    return firstCard
+}
+
+func BestMatchingCardsToBeat (FirstPlayerDeck: inout [Card], SecondPlayerDeck: inout [Card]) -> (Int, [Card]) {
+    let pickedCard = ReadCardNumberToMove()
     var bestMatchingCards: [Card] = []
     for card in SecondPlayerDeck{
         if card.rank > FirstPlayerDeck[pickedCard - 1].rank && card.suit == FirstPlayerDeck[pickedCard - 1].suit {
             bestMatchingCards.append(card)
-            let i = SecondPlayerDeck.firstIndex(where: {$0.rank == card.rank && $0.suit == card.suit})
-            SecondPlayerDeck.remove(at: i!)
+            //let i = SecondPlayerDeck.firstIndex(where: {$0.rank == card.rank && $0.suit == card.suit})
+            //SecondPlayerDeck.remove(at: i!)
         }
     }
     if bestMatchingCards.isEmpty {
         for card in SecondPlayerDeck{
             if card.rank > FirstPlayerDeck[pickedCard - 1].rank && card.suit == trumpSuitNumber {
                 bestMatchingCards.append(card)
-                let j = SecondPlayerDeck.firstIndex(where: {$0.rank == card.rank && $0.suit == card.suit})
-                SecondPlayerDeck.remove(at: j!)
+                //let j = SecondPlayerDeck.firstIndex(where: {$0.rank == card.rank && $0.suit == card.suit})
+                //SecondPlayerDeck.remove(at: j!)
             }
         }
     }
-    return bestMatchingCards
+    return (pickedCard, bestMatchingCards)
 }
 
-func readCardNumberToBeat() -> Int {
-    print("It's time to beat a card, which one you choose?")
-    let stringValue = readLine()
-    var pickedCard: Int = 0
-    if let yourStr = Int(stringValue!) {
-        pickedCard = yourStr
-    }
-    return pickedCard
-}
-
-func Beat(used: inout [Card], bestMatchingCards: [Card], pickedCardToBeat: Int) -> [Card] {
+func Beat(BMC_result: Int, FirstPlayerDeck: inout [Card], bestMatchingCards: inout [Card]) -> [Card] {
     if bestMatchingCards.isEmpty == false {
-        
+        let a = BMC_result
+        pool.append(FirstPlayerDeck[a])
+        let b = ReadCardNumberToBeat()
+        pool.append(bestMatchingCards[b])
+        //for _ in FirstPlayerDeck{
+        //    let i = FirstPlayerDeck.firstIndex(where: {$0.rank == FirstPlayerDeck[a].rank && $0.suit == FirstPlayerDeck[a].suit})
+        //    FirstPlayerDeck.remove(at: i!)
+        //}
+        //for _ in bestMatchingCards{
+            //let j = bestMatchingCards.firstIndex(where: {$0.rank == bestMatchingCards[b].rank && $0.suit == bestMatchingCards[b].suit})
+            //bestMatchingCards.remove(at: j!)
+        //}
     }
-    return used
+    return pool
 }
 
-func PickUpCards (bestMatchingCards: [Card]) {
+func PickUpCards (bestMatchingCards: [Card], FirstPlayerDeck: inout [Card], SecondPlayerDeck: inout [Card]) {
     if bestMatchingCards.isEmpty == true {
-        
+        let a = ReadCardNumberToMove()
+        SecondPlayerDeck.append(FirstPlayerDeck[a])
     }
 }
+
+Start()
+ShowCardsOfPlayer(playerDeckOnHand: &player1Deck)
+ShowCardsOfPlayer(playerDeckOnHand: &player2Deck)
+YourMove()
+var result = BestMatchingCardsToBeat(FirstPlayerDeck: &player1Deck, SecondPlayerDeck: &player2Deck)
+pool = Beat(BMC_result: result.0, FirstPlayerDeck: &player1Deck, bestMatchingCards: &result.1)
+
+
+
+
+ShowCardsOfPlayer(playerDeckOnHand: &player1Deck)
+ShowCardsOfPlayer(playerDeckOnHand: &player2Deck)
+ShowCardsOfPlayer(playerDeckOnHand: &result.1)
