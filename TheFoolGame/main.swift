@@ -64,6 +64,7 @@ var deck = [Card1, Card2, Card3, Card4, Card5, Card6, Card7, Card8, Card9, Card1
 var shuffledDeck = deck.shuffled()
 var pool: [Card] = []
 var used: [Card] = []
+var roundEnded: Bool = false
 let trumpSuitNumber = Int.random(in: 1 ... 4)
     
     for card in shuffledDeck{
@@ -230,13 +231,161 @@ func ReadCardNumberToMove() -> Int {
 }
 
 func ReadCardNumberToBeat() -> Int {
-    print("It's time to beat a card, which one you choose?\n")
     let stringValue = readLine()
     var pickedCard: Int = 0
     if let yourStr = Int(stringValue!) {
         pickedCard = yourStr
     }
     return pickedCard
+}
+
+func BestMatchingCardsToBeat (WhoAttacksDeck: inout [Card], WhoBeatsDeck: inout [Card]) -> ([Card], Int) {
+    let pickedCard = ReadCardNumberToMove()
+    
+    var movingCard: [Card] = []
+    movingCard.append(WhoAttacksDeck[pickedCard - 1])
+    ShowCardsOfPlayer(playerDeckOnHand: &movingCard)
+    movingCard.removeAll()
+    
+    var bestMatchingCards: [Card] = []
+    
+    for card in WhoBeatsDeck{
+        if card.suit == WhoAttacksDeck[pickedCard - 1].suit && card.rank > WhoAttacksDeck[pickedCard - 1].rank {
+            bestMatchingCards.append(card)
+        } else if WhoAttacksDeck[pickedCard - 1].suit != trumpSuitNumber && card.suit == trumpSuitNumber {
+            bestMatchingCards.append(card)
+        }
+    }
+    return (bestMatchingCards, pickedCard)
+}
+
+func BeatByComputer (bestMatchingCards: inout [Card], pickedCard: Int, WhoAttacksDeck: inout [Card]) -> [Card] {
+    var beatingCard: [Card] = []
+    beatingCard.append(bestMatchingCards[0])
+    ShowCardsOfPlayer(playerDeckOnHand: &beatingCard)
+    beatingCard.removeAll()
+    
+    pool.append(WhoAttacksDeck[pickedCard - 1])
+    for card in WhoAttacksDeck{
+        let i = WhoAttacksDeck.firstIndex(where: {$0.rank == card.rank && $0.suit == card.suit})
+        WhoAttacksDeck.remove(at: i!)
+    }
+    pool.append(bestMatchingCards[0])
+    bestMatchingCards.removeAll()
+    
+    return pool
+}
+
+func CanDrop (pool: [Card], WhoAttacksDeck: [Card]) -> [Card] {
+    var cardsPlayerCanDrop: [Card] = []
+    for card1 in WhoAttacksDeck {
+        for card2 in pool {
+            if card1.rank == card2.rank{
+                cardsPlayerCanDrop.append(card1)
+            }
+        }
+    }
+    return cardsPlayerCanDrop
+}
+
+func PickUpCards (pool: [Card], WhoBeatsDeck: inout [Card]) -> [Card] {
+    for card in pool {
+        WhoBeatsDeck.append(card)
+    }
+    return WhoBeatsDeck
+}
+
+func Main(){
+    Start()
+    ShowCardsOfPlayer(playerDeckOnHand: &player1Deck)
+    YourMove()
+    var BestMatchingCardsToBeatRESULT = BestMatchingCardsToBeat(WhoAttacksDeck: &player1Deck, WhoBeatsDeck: &player2Deck)
+    var CanDropRESULT: [Card] = []
+    var roundEnded: Bool = false
+    while roundEnded == false {
+        if BestMatchingCardsToBeatRESULT.0.isEmpty == false {
+            pool = BeatByComputer(bestMatchingCards: &BestMatchingCardsToBeatRESULT.0, pickedCard: BestMatchingCardsToBeatRESULT.1, WhoAttacksDeck: &player1Deck)
+            roundEnded = false
+        } else {
+            print("Computer cannot beat")
+            CanDropRESULT = PickUpCards(pool: pool, WhoBeatsDeck: &player2Deck)
+            roundEnded = true
+        }
+    }
+}
+Main()
+
+/*CanDropRESULT = CanDrop(pool: pool, WhoAttacksDeck: player1Deck)
+print("You can drop some cards, type number or leave empty")
+ShowCardsOfPlayer(playerDeckOnHand: &CanDropRESULT)
+
+func BestMatchingCardsToBeat (roundEnded: inout Bool, WhoAttacksDeck: inout [Card], WhoBeatsDeck: inout [Card]) -> (Int, [Card], Bool) {
+    
+    let pickedCard = ReadCardNumberToMove()
+    
+    var movingCard: [Card] = []
+    movingCard.append(WhoAttacksDeck[pickedCard - 1])
+    ShowCardsOfPlayer(playerDeckOnHand: &movingCard)
+    movingCard.removeAll()
+    
+    var bestMatchingCards: [Card] = []
+    
+    for card in WhoBeatsDeck{
+        if card.suit == WhoAttacksDeck[pickedCard - 1].suit && card.rank > WhoAttacksDeck[pickedCard - 1].rank {
+            bestMatchingCards.append(card)
+        } else if WhoAttacksDeck[pickedCard - 1].suit != trumpSuitNumber && card.suit == trumpSuitNumber {
+            bestMatchingCards.append(card)
+        }
+    }
+    if bestMatchingCards.isEmpty == true {
+        roundEnded = true
+        PickUpCards(bestMatchingCards: &bestMatchingCards, WhoBeatsDeck: &player2Deck)
+    }
+    return (pickedCard, bestMatchingCards, roundEnded)
+}
+
+func BeatByComputer(roundEnded: inout Bool, BMC_result: Int, FirstPlayerDeck: inout [Card], bestMatchingCards: inout [Card]) -> ([Card], Bool) {
+    if bestMatchingCards.isEmpty == false {
+        
+        var beatingCard: [Card] = []
+        beatingCard.append(bestMatchingCards[0])
+        ShowCardsOfPlayer(playerDeckOnHand: &beatingCard)
+        beatingCard.removeAll()
+        
+        pool.append(FirstPlayerDeck[BMC_result])
+        
+        for card in FirstPlayerDeck{
+            let i = FirstPlayerDeck.firstIndex(where: {$0.rank == card.rank && $0.suit == card.suit})
+            FirstPlayerDeck.remove(at: i!)
+        }
+        pool.append(bestMatchingCards[0])
+        
+        bestMatchingCards.removeAll()
+    } else {roundEnded = true}
+    return (pool, roundEnded)
+}
+
+func CanDrop (roundEnded: inout Bool, pool: [Card], FirstPlayerDeck: [Card]) -> Bool {
+    var cardsPlayerCanDrop: [Card] = []
+    for card1 in FirstPlayerDeck {
+        for card2 in pool {
+            if card1.rank == card2.rank{
+                cardsPlayerCanDrop.append(card1)
+            }
+        }
+    }
+    if cardsPlayerCanDrop.isEmpty == true {
+        roundEnded = true
+    } else {roundEnded = false}
+    return roundEnded
+}
+
+func PickUpCards (bestMatchingCards: inout [Card], WhoBeatsDeck: inout [Card]) -> ([Card], [Card]){
+    for card in pool {
+        WhoBeatsDeck.append(card)
+    }
+    bestMatchingCards.removeAll()
+    return (bestMatchingCards, WhoBeatsDeck)
 }
 
 func MoveByComputer(whoMovesDeck: inout [Card]) -> [Card] {
@@ -250,63 +399,15 @@ func MoveByComputer(whoMovesDeck: inout [Card]) -> [Card] {
     return firstCard
 }
 
-func BestMatchingCardsToBeat (FirstPlayerDeck: inout [Card], SecondPlayerDeck: inout [Card]) -> (Int, [Card]) {
-    let pickedCard = ReadCardNumberToMove()
-    var bestMatchingCards: [Card] = []
-    for card in SecondPlayerDeck{
-        if card.rank > FirstPlayerDeck[pickedCard - 1].rank && card.suit == FirstPlayerDeck[pickedCard - 1].suit {
-            bestMatchingCards.append(card)
-            //let i = SecondPlayerDeck.firstIndex(where: {$0.rank == card.rank && $0.suit == card.suit})
-            //SecondPlayerDeck.remove(at: i!)
-        }
-    }
-    if bestMatchingCards.isEmpty {
-        for card in SecondPlayerDeck{
-            if card.rank > FirstPlayerDeck[pickedCard - 1].rank && card.suit == trumpSuitNumber {
-                bestMatchingCards.append(card)
-                //let j = SecondPlayerDeck.firstIndex(where: {$0.rank == card.rank && $0.suit == card.suit})
-                //SecondPlayerDeck.remove(at: j!)
-            }
-        }
-    }
-    return (pickedCard, bestMatchingCards)
+    //let i = SecondPlayerDeck.firstIndex(where: {$0.rank == card.rank && $0.suit == card.suit})
+    //SecondPlayerDeck.remove(at: i!)
+
+func MAIN (){
+    Start()
+    ShowCardsOfPlayer(playerDeckOnHand: &player1Deck)
+    YourMove()
+    _ = BestMatchingCardsToBeat(roundEnded: &roundEnded, FirstPlayerDeck: &player1Deck, SecondPlayerDeck: &player2Deck)
 }
 
-func Beat(BMC_result: Int, FirstPlayerDeck: inout [Card], bestMatchingCards: inout [Card]) -> [Card] {
-    if bestMatchingCards.isEmpty == false {
-        let a = BMC_result
-        pool.append(FirstPlayerDeck[a])
-        let b = ReadCardNumberToBeat()
-        pool.append(bestMatchingCards[b])
-        //for _ in FirstPlayerDeck{
-        //    let i = FirstPlayerDeck.firstIndex(where: {$0.rank == FirstPlayerDeck[a].rank && $0.suit == FirstPlayerDeck[a].suit})
-        //    FirstPlayerDeck.remove(at: i!)
-        //}
-        //for _ in bestMatchingCards{
-            //let j = bestMatchingCards.firstIndex(where: {$0.rank == bestMatchingCards[b].rank && $0.suit == bestMatchingCards[b].suit})
-            //bestMatchingCards.remove(at: j!)
-        //}
-    }
-    return pool
-}
-
-func PickUpCards (bestMatchingCards: [Card], FirstPlayerDeck: inout [Card], SecondPlayerDeck: inout [Card]) {
-    if bestMatchingCards.isEmpty == true {
-        let a = ReadCardNumberToMove()
-        SecondPlayerDeck.append(FirstPlayerDeck[a])
-    }
-}
-
-Start()
-ShowCardsOfPlayer(playerDeckOnHand: &player1Deck)
-ShowCardsOfPlayer(playerDeckOnHand: &player2Deck)
-YourMove()
-var result = BestMatchingCardsToBeat(FirstPlayerDeck: &player1Deck, SecondPlayerDeck: &player2Deck)
-pool = Beat(BMC_result: result.0, FirstPlayerDeck: &player1Deck, bestMatchingCards: &result.1)
-
-
-
-
-ShowCardsOfPlayer(playerDeckOnHand: &player1Deck)
-ShowCardsOfPlayer(playerDeckOnHand: &player2Deck)
-ShowCardsOfPlayer(playerDeckOnHand: &result.1)
+MAIN()
+*/
